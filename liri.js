@@ -25,7 +25,7 @@ switch (search) {
     break;
     case "do-what-it-says":
     console.log("Do what it says!");
-    doIt(term);
+    doIt();
     break;
     default:
     console.log("Please try again");
