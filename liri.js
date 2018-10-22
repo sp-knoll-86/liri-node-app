@@ -12,23 +12,23 @@ let term = process.argv.slice(3).join(" ");
 
 switch (search) {
     case "concert-this":
-    console.log("You are searching for a concert");
+    console.log("\nYou are searching for a concert\n");
     concertThis(term);
     break;
     case "spotify-this-song":
-    console.log("You are searching for a song");
+    console.log("\nYou are searching for a song\n");
     spotifySong(term);
     break;
     case "movie-this":
-    console.log("you are searching for a movie");
+    console.log("\nyou are searching for a movie\n");
     movieInfo(term);
     break;
     case "do-what-it-says":
-    console.log("Do what it says!");
+    console.log("\nDo what it says!\n");
     doIt();
     break;
     default:
-    console.log("Please try again");
+    console.log("\nPlease try again\n");
 }
 
 function concertThis(term) {
