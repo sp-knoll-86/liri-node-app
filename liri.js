@@ -12,36 +12,36 @@ let term = process.argv.slice(3).join(" ");
 
 switch (search) {
     case "concert-this":
-    console.log("\nYou are searching for a concert\n");
-    concertThis(term);
-    break;
+        console.log("\nYou are searching for a concert\n");
+        concertThis(term);
+        break;
     case "spotify-this-song":
-    console.log("\nYou are searching for a song\n");
-    spotifySong(term);
-    break;
+        console.log("\nYou are searching for a song\n");
+        spotifySong(term);
+        break;
     case "movie-this":
-    console.log("\nyou are searching for a movie\n");
-    movieInfo(term);
-    break;
+        console.log("\nyou are searching for a movie\n");
+        movieInfo(term);
+        break;
     case "do-what-it-says":
-    console.log("\nDo what it says!\n");
-    doIt();
-    break;
+        console.log("\nDo what it says!\n");
+        doIt();
+        break;
     default:
-    console.log("\nPlease try again\n");
+        console.log("\nPlease try again\n");
 }
 
 function concertThis(term) {
-    let  queryURL = "https://rest.bandsintown.com/artists/"+ term +"/events?app_id=codingbootcamp";
-    request(queryURL, function(error, response, body) {
+    let queryURL = "https://rest.bandsintown.com/artists/" + term + "/events?app_id=codingbootcamp";
+    request(queryURL, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            let  json = JSON.parse(body);
+            let json = JSON.parse(body);
             for (i = 0; i < json.length; i++) {
-                let  showInfo = json[i].datetime;
-                let  month = showInfo.substring(5, 7);
-                let  year = showInfo.substring(0, 4);
-                let  day = showInfo.substring(8, 10);
-                let  dateDisplay = month + "/" + day + "/" + year;
+                let showInfo = json[i].datetime;
+                let month = showInfo.substring(5, 7);
+                let year = showInfo.substring(0, 4);
+                let day = showInfo.substring(8, 10);
+                let dateDisplay = month + "/" + day + "/" + year;
 
                 console.log("Searching for " + term + " concert information");
                 console.log("\n-----------------------------------\n");
@@ -56,7 +56,7 @@ function concertThis(term) {
 
 function spotifySong(term) {
 
-    let  searchSong;
+    let searchSong;
     if (term === undefined) {
         searchSong = "Ace of Base The Sign";
     } else {
@@ -66,7 +66,7 @@ function spotifySong(term) {
     spotify.search({
         type: "track",
         query: searchSong
-    }, function(error, data) {
+    }, function (error, data) {
         if (error) {
             return console.log("Error Ocurred: " + error);
         }
@@ -84,16 +84,16 @@ function spotifySong(term) {
 
 function movieInfo(term) {
 
-    let  searchMovie;
+    let searchMovie;
     if (term === undefined) {
         searchMovie = "Mr. Nobody";
     } else {
         searchMovie = term;
     }
 
-    let  queryUrl = "http://www.omdbapi.com/?t=" + searchMovie + "&y=&plot=short&apikey=trilogy";
+    let queryUrl = "http://www.omdbapi.com/?t=" + searchMovie + "&y=&plot=short&apikey=trilogy";
 
-    request(queryUrl, function(error, response, body) {
+    request(queryUrl, function (error, response, body) {
         let jsonResponse = JSON.parse(body);
         if (!error && response.statusCode === 200) {
             console.log(searchMovie);
@@ -112,7 +112,7 @@ function movieInfo(term) {
 }
 
 function doIt() {
-    fs.readFile("random.txt", "UTF-8", function(error, data) {
+    fs.readFile("random.txt", "UTF-8", function (error, data) {
         if (error) {
             return console.log(error);
         }
@@ -121,13 +121,13 @@ function doIt() {
         if (dataArray[0] === "spotify-this-song") {
             var savedText = dataArray[1].trim().slice(1, -1);
             spotifySong(savedText);
-        } 
+        }
     })
 }
 
 function saveInfo(dataToLog) {
     console.log(dataToLog);
-    fs.appendFile("log.txt", dataToLog + "\n", function(error) {
+    fs.appendFile("log.txt", dataToLog + "\n", function (error) {
         if (error) return console.log("Error logging data to file: " + error);
     })
 }
